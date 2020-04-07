@@ -1,1 +1,1 @@
-# mattermost-server-plugin
+# Mattermost server plugin used to communicate and synchronize with coreBOS

@@ -1,0 +1,57 @@
+id: com.mattermost.server
+name: Extend mattermost functionality plugin
+server:
+  executable: main
+settings_schema:
+  header: please insert the configurations
+  settings:
+    - key: ChatWithMeToken
+      display_name: Chat With Me Token
+      type: text
+      help_text: Open Corebos > Settings > Chat with me > Comma separated list of valid tokens | copy token value
+      default: your_chatwithme_token
+    - key: ChatWithMeExtensionUrl
+      display_name: Chat With Me Extension Url
+      type: text
+      help_text: Example http://192.168.80.95/corebos/notifications.php?type=CWM
+      default: http://your_corebosserver/your_corebos/notifications.php?type=CWM
+    - key: MatterMostHost
+      display_name: Mattermost Host
+      type: text
+      help_text: Example http://192.168.80.95:8085
+      default: http://your_mattermost_ip:your_mattermost_port
+    - key: MatterMostAdminUsername
+      display_name: Mattermost Admin Username
+      type: text
+      help_text: Enter dhe mattermost admin username
+      default: mattermost_admin_username
+    - key: MatterMostAdminPassword
+      display_name: Mattermost Admin Password
+      type: text
+      help_text: Enter dhe mattermost admin password
+      default: MatterMostAdminPassword
+    - key: ChatWithMeTriggerWords
+      display_name: ChatWithMeTriggerWords
+      type: text
+      help_text: "#ayuda,#busca,#muestra,#actualiza,#edita,#crea,#borra,#ver,#iniciacontador,#paracontador,#registratiempo,#avisame,#lista,#help,#find,#show,#update,#edit,#create,#delete,#see,#starttimer,#stoptimer,#logtime,#remindme,#list,#task,#taskfortime,#taskforproject,#sbsavetime,#time \n all triger word separate with comma"
+      default: "#ayuda,#busca,#muestra,#actualiza,#edita,#crea,#borra,#ver,#iniciacontador,#paracontador,#registratiempo,#avisame,#lista,#help,#find,#show,#update,#edit,#create,#delete,#see,#starttimer,#stoptimer,#logtime,#remindme,#list,#task,#taskfortime,#taskforproject,#sbsavetime,#time"
+    - key: ChatWithMeTriggerWordsEphemeral
+      display_name: ChatWithMeTriggerWordsEphemeral
+      type: text
+      help_text: "#ayuda,#busca,#muestra,#actualiza,#edita,#crea,#borra,#ver,#iniciacontador,#paracontador,#registratiempo,#avisame,#lista,#help,#find,#show,#update,#edit,#create,#delete,#see,#starttimer,#stoptimer,#logtime,#remindme,#list,#task,#taskfortime,#taskforproject,#sbsavetime,#time \n all triger word separate with comma"
+      default: "#ayuda,#lista,#time"
+    - key: CorebosUrl
+      display_name: Corebos site url
+      type: text
+      help_text: Enter corebos installation url
+      default: http://localhost/corebos
+    - key: CorebosUserName
+      display_name: Corebos username
+      type: text
+      help_text: Corebos user to use for webservice calls
+      default: admin
+    - key: CorebosUserPassword
+      display_name: Corebos user password
+      type: text
+      help_text: Password of the given user to make the webservice calls
+      default: admin
