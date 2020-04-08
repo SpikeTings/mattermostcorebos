@@ -23,6 +23,7 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 
 	// Public router section
 	router.Path("/postmessage").HandlerFunc(p.postMessage).Methods(http.MethodPost)
+	router.Path("/syncuser").HandlerFunc(p.syncUserWithCoreBOS).Methods(http.MethodPost)
 
 	protected.Use(auth.CheckAuthentication)
 	router.ServeHTTP(w, r)
