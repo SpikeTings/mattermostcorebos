@@ -22,7 +22,7 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.GetWikies).Methods(http.MethodGet)
 
 	// Public router section
-	router.Path("/postmessage").HandlerFunc(p.postMessage).Methods(http.MethodGet)
+	router.Path("/postmessage").HandlerFunc(p.postMessage).Methods(http.MethodPost)
 
 	protected.Use(auth.CheckAuthentication)
 	router.ServeHTTP(w, r)
