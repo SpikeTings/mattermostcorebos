@@ -12,13 +12,18 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 
 	session, _ := p.API.GetSession(c.SessionId)
 	auth := middleware.AuthenticationMiddleware{Session: session}
-	// Router section
-	router.HandleFunc("/team/{team-name}/project/{name}/documents", p.GetDocumentsForProject).Methods(http.MethodGet)
 
-	router.HandleFunc("/team/{team-name}/project/{name}/wiki", p.CreateWiki).Methods(http.MethodPost)
-	router.HandleFunc("/team/{team-name}/project/{name}/wiki", p.UpdateWiki).Methods(http.MethodPut)
-	router.HandleFunc("/team/{team-name}/project/{name}/wiki", p.GetWikies).Methods(http.MethodGet)
+	// Protected router section
+	protected := router.PathPrefix("/").Subrouter()
+	protected.HandleFunc("/team/{team-name}/project/{name}/documents", p.GetDocumentsForProject).Methods(http.MethodGet)
 
-	router.Use(auth.CheckAuthentication)
+	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.CreateWiki).Methods(http.MethodPost)
+	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.UpdateWiki).Methods(http.MethodPut)
+	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.GetWikies).Methods(http.MethodGet)
+
+	// Public router section
+	router.Path("/postmessage").HandlerFunc(p.postMessage).Methods(http.MethodGet)
+
+	protected.Use(auth.CheckAuthentication)
 	router.ServeHTTP(w, r)
 }
