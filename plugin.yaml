@@ -1,4 +1,4 @@
-id: com.mattermost.server
+id: com.corebos.server
 name: Extend mattermost functionality plugin
 server:
   executable: main
