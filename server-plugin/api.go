@@ -19,6 +19,8 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 
 	protected.HandleFunc("/team/{team-name}/project/{name}/task", p.CreateTaskForProject).Methods(http.MethodPost)
 
+	protected.HandleFunc("/team/{team-name}/project/{name}/method/{method}/module/{module}/invoke", p.DoInvoke).Methods(http.MethodPost)
+
 	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.CreateWiki).Methods(http.MethodPost)
 	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.UpdateWiki).Methods(http.MethodPut)
 	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.GetWikies).Methods(http.MethodGet)
