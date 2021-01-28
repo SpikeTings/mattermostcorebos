@@ -63,7 +63,7 @@ func (p *Plugin) CreateTaskForProject(w http.ResponseWriter, r *http.Request) {
 
 	dq, err := wsContext.DoQuery("select id from Project where projectname = '" + channel.DisplayName + "' and teamname = '" + team.DisplayName + "';")
 	if err != nil {
-		helpers.DisplayAppErrorResponse(w, "There was a problem getting project!", http.StatusInternalServerError)
+		helpers.DisplayAppErrorResponse(w, "There was a problem getting project! Where projectname = '"+channel.DisplayName+"' and teamname = '"+team.DisplayName+"';", http.StatusInternalServerError)
 		return
 	}
 
@@ -91,6 +91,7 @@ func (p *Plugin) CreateTaskForProject(w http.ResponseWriter, r *http.Request) {
 	taskData["projecttaskname"] = input["projecttaskname"]
 	taskData["protask_category"] = input["protask_category"]
 	taskData["accrelated"] = input["accrelated"]
+	taskData["caller"] = input["caller"]
 	taskData["projecttaskpriority"] = input["projecttaskpriority"]
 	taskData["projecttasktype"] = input["projecttasktype"]
 	taskData["projecttaskstatus"] = input["projecttaskstatus"]
@@ -99,7 +100,7 @@ func (p *Plugin) CreateTaskForProject(w http.ResponseWriter, r *http.Request) {
 	taskData["description"] = input["description"]
 	task, err := wsContext.DoCreate("ProjectTask", taskData)
 	if err != nil {
-		helpers.DisplayAppErrorResponse(w, "There was a problem getting project!", http.StatusInternalServerError)
+		helpers.DisplayAppErrorResponse(w, "There was a problem Creating project!\n "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 

@@ -17,13 +17,13 @@ func (p *Plugin) DoInvoke(w http.ResponseWriter, r *http.Request) {
 
 	team, teamErr := p.API.GetTeamByName(teamName)
 	if teamErr != nil {
-		helpers.DisplayAppErrorResponse(w, "The team does not exist!", http.StatusNotFound)
+		helpers.DisplayAppErrorResponse(w, "The team "+teamName+" does not exist!", http.StatusNotFound)
 		return
 	}
 
 	_, channelErr := p.API.GetChannelByName(team.Id, channelName, false)
 	if channelErr != nil {
-		helpers.DisplayAppErrorResponse(w, "The channel does not exist!", http.StatusNotFound)
+		helpers.DisplayAppErrorResponse(w, "The channel "+channelName+" does not exist!", http.StatusNotFound)
 		return
 	}
 
