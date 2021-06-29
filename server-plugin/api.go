@@ -27,6 +27,7 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 
 	// Public router section
 	router.Path("/health").HandlerFunc(p.Health).Methods(http.MethodGet)
+	router.Path("/key").HandlerFunc(p.DoKeyJob).Methods(http.MethodGet)
 	router.Path("/postmessage").HandlerFunc(p.postMessage).Methods(http.MethodPost)
 	router.Path("/syncuser").HandlerFunc(p.syncUserWithCoreBOS).Methods(http.MethodPost)
 
