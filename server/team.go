@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"mattermostcorebos/configuration"
 	"mattermostcorebos/entity"
 	"mattermostcorebos/helpers"
@@ -9,9 +10,9 @@ import (
 	"github.com/mattermost/mattermost/server/public/model"
 )
 
-func (p *Plugin) addTeam(user model.User, userHelper entity.User) {
+func (p *Plugin) addTeam(ctx context.Context, user model.User, userHelper entity.User) {
 	Client := model.NewAPIv4Client(configuration.MatterMostHost)
-	Client.Login(configuration.MatterMostAdminUsername, configuration.MatterMostAdminPassword) //admin credencials
+	Client.Login(ctx, configuration.MatterMostAdminUsername, configuration.MatterMostAdminPassword) //admin credentials
 	teams, appError := p.API.GetTeams()
 	if appError != nil {
 		return
@@ -21,6 +22,6 @@ func (p *Plugin) addTeam(user model.User, userHelper entity.User) {
 		if !helpers.Contains(teamsRequest, team.DisplayName) {
 			continue
 		}
-		Client.AddTeamMember(team.Id, user.Id)
+		Client.AddTeamMember(ctx, team.Id, user.Id)
 	}
 }

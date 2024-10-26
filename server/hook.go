@@ -38,7 +38,7 @@ func (p *Plugin) OnActivate() error {
 	if channel == nil {
 		channel, err = p.API.CreateChannel(&model.Channel{
 			TeamId:      team.Id,
-			Type:        model.CHANNEL_OPEN,
+			Type:        model.ChannelTypeOpen,
 			DisplayName: "Chat With Me",
 			Name:        "chatwithme",
 			Header:      "The channel used by the mattermost-extend plugin.",
