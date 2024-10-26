@@ -2,7 +2,7 @@ package server
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"mattermostcorebos/entity"
 	"mattermostcorebos/helpers"
 	"net/http"
@@ -11,7 +11,7 @@ import (
 )
 
 func (p *Plugin) postMessage(w http.ResponseWriter, r *http.Request) {
-	rawBody, err := ioutil.ReadAll(r.Body)
+	rawBody, err := io.ReadAll(r.Body)
 	if err != nil {
 		helpers.DisplayAppErrorResponse(w, "There were a problem parsing request", http.StatusBadRequest)
 		return
