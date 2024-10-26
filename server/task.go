@@ -1,13 +1,14 @@
-package server_plugin
+package server
 
 import (
+	"mattermostcorebos/configuration"
+	"mattermostcorebos/helpers"
+	"net/http"
+	"time"
+
 	"github.com/gorilla/mux"
 	"github.com/thedevsaddam/govalidator"
 	"github.com/tsolucio/corebosgowslib"
-	"mattermost-server-plugin/configuration"
-	"mattermost-server-plugin/helpers"
-	"net/http"
-	"time"
 )
 
 func (p *Plugin) CreateTaskForProject(w http.ResponseWriter, r *http.Request) {

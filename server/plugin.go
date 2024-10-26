@@ -1,12 +1,13 @@
-package server_plugin
+package server
 
 import (
 	"errors"
-	"github.com/mattermost/mattermost-server/model"
-	"github.com/mattermost/mattermost-server/plugin"
-	"mattermost-server-plugin/configuration"
+	"mattermostcorebos/configuration"
 	"net/http"
 	"net/url"
+
+	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
 )
 
 type Plugin struct {

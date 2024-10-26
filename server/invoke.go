@@ -1,10 +1,11 @@
-package server_plugin
+package server
 
 import (
-	"github.com/gorilla/mux"
-	"mattermost-server-plugin/corebos"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/corebos"
+	"mattermostcorebos/helpers"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func (p *Plugin) DoInvoke(w http.ResponseWriter, r *http.Request) {

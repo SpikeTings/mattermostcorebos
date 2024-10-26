@@ -1,6 +1,6 @@
 package configuration
 
-import "mattermost-server-plugin/helpers"
+import "mattermostcorebos/helpers"
 
 var ChatWithMeToken string
 var ChatWithMeExtensionUrl string

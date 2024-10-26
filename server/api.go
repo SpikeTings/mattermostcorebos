@@ -1,10 +1,11 @@
-package server_plugin
+package server
 
 import (
-	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-server/plugin"
-	"mattermost-server-plugin/middleware"
+	"mattermostcorebos/middleware"
 	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/mattermost/mattermost/server/public/plugin"
 )
 
 func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {

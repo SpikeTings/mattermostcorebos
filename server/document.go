@@ -1,13 +1,14 @@
-package server_plugin
+package server
 
 import (
 	b64 "encoding/base64"
-	"github.com/gorilla/mux"
-	"github.com/tsolucio/corebosgowslib"
-	"mattermost-server-plugin/configuration"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/configuration"
+	"mattermostcorebos/helpers"
 	"net/http"
 	"sync"
+
+	"github.com/gorilla/mux"
+	"github.com/tsolucio/corebosgowslib"
 )
 
 func (p *Plugin) GetDocumentsForProject(w http.ResponseWriter, r *http.Request) {

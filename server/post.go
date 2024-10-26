@@ -1,12 +1,13 @@
-package server_plugin
+package server
 
 import (
 	"encoding/json"
-	"github.com/mattermost/mattermost-server/model"
 	"io/ioutil"
-	"mattermost-server-plugin/entity"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/entity"
+	"mattermostcorebos/helpers"
 	"net/http"
+
+	"github.com/mattermost/mattermost/server/public/model"
 )
 
 func (p *Plugin) postMessage(w http.ResponseWriter, r *http.Request) {

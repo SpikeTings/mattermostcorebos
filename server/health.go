@@ -1,10 +1,10 @@
-package server_plugin
+package server
 
 import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/helpers"
 	"net/http"
 )
 

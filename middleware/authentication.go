@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"github.com/mattermost/mattermost-server/model"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/helpers"
 	"net/http"
+
+	"github.com/mattermost/mattermost/server/public/model"
 )
 
 type AuthenticationMiddleware struct {

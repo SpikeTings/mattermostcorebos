@@ -1,11 +1,12 @@
-package server_plugin
+package server
 
 import (
-	"github.com/mattermost/mattermost-server/model"
-	"mattermost-server-plugin/configuration"
-	"mattermost-server-plugin/entity"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/configuration"
+	"mattermostcorebos/entity"
+	"mattermostcorebos/helpers"
 	"strings"
+
+	"github.com/mattermost/mattermost/server/public/model"
 )
 
 func (p *Plugin) addTeam(user model.User, userHelper entity.User) {

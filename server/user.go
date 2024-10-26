@@ -1,10 +1,10 @@
-package server_plugin
+package server
 
 import (
 	"encoding/json"
 	"io/ioutil"
-	"mattermost-server-plugin/entity"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/entity"
+	"mattermostcorebos/helpers"
 	"net/http"
 )
 

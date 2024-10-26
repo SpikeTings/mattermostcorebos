@@ -1,15 +1,16 @@
-package server_plugin
+package server
 
 import (
 	"errors"
-	"github.com/mattermost/mattermost-server/model"
-	"github.com/mattermost/mattermost-server/plugin"
-	"github.com/tsolucio/corebosgowslib"
-	"mattermost-server-plugin/configuration"
-	"mattermost-server-plugin/configuration/language"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/configuration"
+	"mattermostcorebos/configuration/language"
+	"mattermostcorebos/helpers"
 	"regexp"
 	"strings"
+
+	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
+	"github.com/tsolucio/corebosgowslib"
 )
 
 func (p *Plugin) OnConfigurationChange() error {
