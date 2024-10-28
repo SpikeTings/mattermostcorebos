@@ -36,13 +36,13 @@ func (p *Plugin) OnActivate() error {
 	team := teams[0]
 	channel, _ := p.API.GetChannelByNameForTeamName(team.Name, "chatwithme", false)
 	if channel == nil {
-		channel, err = p.API.CreateChannel(&model.Channel{
+		_, err = p.API.CreateChannel(&model.Channel{
 			TeamId:      team.Id,
 			Type:        model.ChannelTypeOpen,
 			DisplayName: "Chat With Me",
 			Name:        "chatwithme",
-			Header:      "The channel used by the mattermost-extend plugin.",
-			Purpose:     "The channel was created by the mattermost-extend plugin to extend the server functionality.",
+			Header:      "The channel used by the mattermost-corebos plugin.",
+			Purpose:     "The channel was created by the mattermost-corebos plugin.",
 		})
 		if err != nil {
 			return err

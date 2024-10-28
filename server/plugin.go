@@ -65,7 +65,7 @@ func (p *Plugin) SendPostToChatWithMeExtension(post *model.Post, triggerWord str
 	}
 
 	if len(incomingWebhookPayload.Text) == 0 && incomingWebhookPayload.Attachments == nil {
-		return errors.New("Wrong response format")
+		return errors.New("incorrect response format")
 	}
 
 	if incomingWebhookPayload.Props != nil {
