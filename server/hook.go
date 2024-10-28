@@ -52,12 +52,12 @@ func (p *Plugin) OnActivate() error {
 }
 
 func (p *Plugin) MessageWillBePosted(c *plugin.Context, post *model.Post) (*model.Post, string) {
-	r, _ := regexp.Compile("^\\S+")
+	r, _ := regexp.Compile(`^\S+`)
 	triggerWord := r.FindString(post.Message)
 	if helpers.Contains(configuration.ChatWithMeTriggerWordsEphemeral, triggerWord) {
 		p.SendPostToChatWithMeExtension(post, triggerWord)
-		p.API.SendEphemeralPost(post.UserId, post)
-		post.Message = "Posted Ephemeral Trigger Word"
+		// p.API.SendEphemeralPost(post.UserId, post)
+		// post.Message = "Posted Ephemeral Trigger Word"
 	}
 	return post, ""
 }
@@ -65,7 +65,7 @@ func (p *Plugin) MessageWillBePosted(c *plugin.Context, post *model.Post) (*mode
 func (p *Plugin) MessageHasBeenPosted(c *plugin.Context, post *model.Post) {
 
 	//Regular expression used for the replacement logic of incoming and outgoing webhooks
-	r, _ := regexp.Compile("^\\S+")
+	r, _ := regexp.Compile(`^\S+`)
 	triggerWord := r.FindString(post.Message)
 
 	if helpers.Contains(configuration.ChatWithMeTriggerWords, triggerWord) {
@@ -73,7 +73,7 @@ func (p *Plugin) MessageHasBeenPosted(c *plugin.Context, post *model.Post) {
 	}
 
 	//Regular expression user for special commands like: open, create, edit, list
-	r, _ = regexp.Compile("^#(\\w+) (\\w+)(?: (\\d+))?$")
+	r, _ = regexp.Compile(`^#(\w+) (\w+)(?: (\d+))?$`)
 	matches := r.FindStringSubmatch(strings.TrimSpace(post.Message))
 
 	if len(matches) > 0 {

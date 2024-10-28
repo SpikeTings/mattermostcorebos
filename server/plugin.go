@@ -53,11 +53,10 @@ func (p *Plugin) SendPostToChatWithMeExtension(post *model.Post, triggerWord str
 		Type:      model.PostTypeSlackAttachment,
 	}
 	resp, err := http.PostForm(configuration.ChatWithMeExtensionUrl, formData)
-	defer resp.Body.Close()
-
 	if err != nil {
 		return err
 	}
+	defer resp.Body.Close()
 
 	incomingWebhookPayload, decodeError := model.IncomingWebhookRequestFromJSON(resp.Body)
 	if decodeError != nil {
