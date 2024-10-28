@@ -1,10 +1,10 @@
-package server_plugin
+package server
 
 import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/helpers"
 	"net/http"
 )
 
@@ -20,9 +20,9 @@ func GetKeyHash(key string) string {
 func (p *Plugin) DoKeyJob(w http.ResponseWriter, r *http.Request) {
 	key := "name"
 
-	value := "ardit"
+	value := "mmcb"
 
-	fmt.Fprint(w, "ardit\n")
+	fmt.Fprint(w, value+"\n")
 	err := p.API.KVSet(key, []byte(value))
 
 	if err != nil {
@@ -30,7 +30,7 @@ func (p *Plugin) DoKeyJob(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprint(w, "sarja\n")
+	fmt.Fprint(w, value+"\n")
 	err = p.API.KVSet(GetKeyHash(key), []byte(value))
 
 	if err != nil {

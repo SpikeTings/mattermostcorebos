@@ -1,9 +1,9 @@
 id: com.corebos.server
-name: Extend mattermost functionality plugin
+name: Chat With Me coreBOS
 server:
   executable: main
 settings_schema:
-  header: please insert the configurations
+  header: Bidirectional communication between Mattermost and coreBOS
   settings:
     - key: ChatWithMeToken
       display_name: Chat With Me Token
@@ -33,12 +33,12 @@ settings_schema:
     - key: ChatWithMeTriggerWords
       display_name: ChatWithMeTriggerWords
       type: text
-      help_text: "#ayuda,#busca,#muestra,#actualiza,#edita,#crea,#borra,#ver,#iniciacontador,#paracontador,#registratiempo,#avisame,#lista,#help,#find,#show,#update,#edit,#create,#delete,#see,#starttimer,#stoptimer,#logtime,#remindme,#list,#task,#taskfortime,#taskforproject,#sbsavetime,#time \n all triger word separate with comma"
+      help_text: "#ayuda,#busca,#muestra,#actualiza,#edita,#crea,#borra,#ver,#iniciacontador,#paracontador,#registratiempo,#avisame,#lista,#help,#find,#show,#update,#edit,#create,#delete,#see,#starttimer,#stoptimer,#logtime,#remindme,#list,#task,#taskfortime,#taskforproject,#sbsavetime,#time \n all triger word separate with a comma"
       default: "#ayuda,#busca,#muestra,#actualiza,#edita,#crea,#borra,#ver,#iniciacontador,#paracontador,#registratiempo,#avisame,#lista,#help,#find,#show,#update,#edit,#create,#delete,#see,#starttimer,#stoptimer,#logtime,#remindme,#list,#task,#taskfortime,#taskforproject,#sbsavetime,#time"
     - key: ChatWithMeTriggerWordsEphemeral
       display_name: ChatWithMeTriggerWordsEphemeral
       type: text
-      help_text: "#ayuda,#busca,#muestra,#actualiza,#edita,#crea,#borra,#ver,#iniciacontador,#paracontador,#registratiempo,#avisame,#lista,#help,#find,#show,#update,#edit,#create,#delete,#see,#starttimer,#stoptimer,#logtime,#remindme,#list,#task,#taskfortime,#taskforproject,#sbsavetime,#time \n all triger word separate with comma"
+      help_text: "#ayuda,#busca,#muestra,#actualiza,#edita,#crea,#borra,#ver,#iniciacontador,#paracontador,#registratiempo,#avisame,#lista,#help,#find,#show,#update,#edit,#create,#delete,#see,#starttimer,#stoptimer,#logtime,#remindme,#list,#task,#taskfortime,#taskforproject,#sbsavetime,#time \n all triger word separate with a comma"
       default: "#ayuda,#lista,#time"
     - key: CorebosUrl
       display_name: Corebos site url

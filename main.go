@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/mattermost/mattermost-server/plugin"
-	"mattermost-server-plugin/server-plugin"
+	"mattermostcorebos/server"
+
+	"github.com/mattermost/mattermost/server/public/plugin"
 )
 
 func main() {
-	plugin.ClientMain(&server_plugin.Plugin{})
+	plugin.ClientMain(&server.Plugin{})
 }

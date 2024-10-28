@@ -1,10 +1,11 @@
-package server_plugin
+package server
 
 import (
-	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-server/plugin"
-	"mattermost-server-plugin/middleware"
+	"mattermostcorebos/middleware"
 	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/mattermost/mattermost/server/public/plugin"
 )
 
 func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
@@ -21,9 +22,10 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 
 	protected.HandleFunc("/team/{team-name}/project/{name}/method/{method}/module/{module}/invoke", p.DoInvoke).Methods(http.MethodPost)
 
-	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.CreateWiki).Methods(http.MethodPost)
-	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.UpdateWiki).Methods(http.MethodPut)
-	protected.HandleFunc("/team/{team-name}/project/{name}/wiki", p.GetWikies).Methods(http.MethodGet)
+	const wikiPath = "/team/{team-name}/project/{name}/wiki"
+	protected.HandleFunc(wikiPath, p.CreateWiki).Methods(http.MethodPost)
+	protected.HandleFunc(wikiPath, p.UpdateWiki).Methods(http.MethodPut)
+	protected.HandleFunc(wikiPath, p.GetWikies).Methods(http.MethodGet)
 
 	// Public router section
 	router.Path("/health").HandlerFunc(p.Health).Methods(http.MethodGet)

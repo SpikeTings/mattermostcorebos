@@ -1,12 +1,13 @@
-package server_plugin
+package server
 
 import (
 	"errors"
-	"github.com/mattermost/mattermost-server/model"
-	"github.com/mattermost/mattermost-server/plugin"
-	"mattermost-server-plugin/configuration"
+	"mattermostcorebos/configuration"
 	"net/http"
 	"net/url"
+
+	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
 )
 
 type Plugin struct {
@@ -49,22 +50,21 @@ func (p *Plugin) SendPostToChatWithMeExtension(post *model.Post, triggerWord str
 	newPost := &model.Post{
 		UserId:    post.UserId,
 		ChannelId: post.ChannelId,
-		Type:      model.POST_SLACK_ATTACHMENT,
+		Type:      model.PostTypeSlackAttachment,
 	}
 	resp, err := http.PostForm(configuration.ChatWithMeExtensionUrl, formData)
-	defer resp.Body.Close()
-
 	if err != nil {
 		return err
 	}
+	defer resp.Body.Close()
 
-	incomingWebhookPayload, decodeError := model.IncomingWebhookRequestFromJson(resp.Body)
+	incomingWebhookPayload, decodeError := model.IncomingWebhookRequestFromJSON(resp.Body)
 	if decodeError != nil {
 		return decodeError
 	}
 
 	if len(incomingWebhookPayload.Text) == 0 && incomingWebhookPayload.Attachments == nil {
-		return errors.New("Wrong response format")
+		return errors.New("incorrect response format")
 	}
 
 	if incomingWebhookPayload.Props != nil {

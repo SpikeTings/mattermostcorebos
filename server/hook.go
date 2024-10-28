@@ -1,15 +1,16 @@
-package server_plugin
+package server
 
 import (
 	"errors"
-	"github.com/mattermost/mattermost-server/model"
-	"github.com/mattermost/mattermost-server/plugin"
-	"github.com/tsolucio/corebosgowslib"
-	"mattermost-server-plugin/configuration"
-	"mattermost-server-plugin/configuration/language"
-	"mattermost-server-plugin/helpers"
+	"mattermostcorebos/configuration"
+	"mattermostcorebos/configuration/language"
+	"mattermostcorebos/helpers"
 	"regexp"
 	"strings"
+
+	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
+	"github.com/tsolucio/corebosgowslib"
 )
 
 func (p *Plugin) OnConfigurationChange() error {
@@ -35,13 +36,13 @@ func (p *Plugin) OnActivate() error {
 	team := teams[0]
 	channel, _ := p.API.GetChannelByNameForTeamName(team.Name, "chatwithme", false)
 	if channel == nil {
-		channel, err = p.API.CreateChannel(&model.Channel{
+		_, err = p.API.CreateChannel(&model.Channel{
 			TeamId:      team.Id,
-			Type:        model.CHANNEL_OPEN,
+			Type:        model.ChannelTypeOpen,
 			DisplayName: "Chat With Me",
 			Name:        "chatwithme",
-			Header:      "The channel used by the mattermost-extend plugin.",
-			Purpose:     "The channel was created by the mattermost-extend plugin to extend the server functionality.",
+			Header:      "The channel used by the mattermost-corebos plugin.",
+			Purpose:     "The channel was created by the mattermost-corebos plugin.",
 		})
 		if err != nil {
 			return err
@@ -51,12 +52,12 @@ func (p *Plugin) OnActivate() error {
 }
 
 func (p *Plugin) MessageWillBePosted(c *plugin.Context, post *model.Post) (*model.Post, string) {
-	r, _ := regexp.Compile("^\\S+")
+	r, _ := regexp.Compile(`^\S+`)
 	triggerWord := r.FindString(post.Message)
 	if helpers.Contains(configuration.ChatWithMeTriggerWordsEphemeral, triggerWord) {
 		p.SendPostToChatWithMeExtension(post, triggerWord)
-		p.API.SendEphemeralPost(post.UserId, post)
-		post.Message = "Posted Ephemeral Trigger Word"
+		// p.API.SendEphemeralPost(post.UserId, post)
+		// post.Message = "Posted Ephemeral Trigger Word"
 	}
 	return post, ""
 }
@@ -64,7 +65,7 @@ func (p *Plugin) MessageWillBePosted(c *plugin.Context, post *model.Post) (*mode
 func (p *Plugin) MessageHasBeenPosted(c *plugin.Context, post *model.Post) {
 
 	//Regular expression used for the replacement logic of incoming and outgoing webhooks
-	r, _ := regexp.Compile("^\\S+")
+	r, _ := regexp.Compile(`^\S+`)
 	triggerWord := r.FindString(post.Message)
 
 	if helpers.Contains(configuration.ChatWithMeTriggerWords, triggerWord) {
@@ -72,7 +73,7 @@ func (p *Plugin) MessageHasBeenPosted(c *plugin.Context, post *model.Post) {
 	}
 
 	//Regular expression user for special commands like: open, create, edit, list
-	r, _ = regexp.Compile("^#(\\w+) (\\w+)(?: (\\d+))?$")
+	r, _ = regexp.Compile(`^#(\w+) (\w+)(?: (\d+))?$`)
 	matches := r.FindStringSubmatch(strings.TrimSpace(post.Message))
 
 	if len(matches) > 0 {

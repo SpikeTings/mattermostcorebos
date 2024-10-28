@@ -1,16 +1,17 @@
-package server_plugin
+package server
 
 import (
 	"encoding/json"
-	"github.com/mattermost/mattermost-server/model"
-	"io/ioutil"
-	"mattermost-server-plugin/entity"
-	"mattermost-server-plugin/helpers"
+	"io"
+	"mattermostcorebos/entity"
+	"mattermostcorebos/helpers"
 	"net/http"
+
+	"github.com/mattermost/mattermost/server/public/model"
 )
 
 func (p *Plugin) postMessage(w http.ResponseWriter, r *http.Request) {
-	rawBody, err := ioutil.ReadAll(r.Body)
+	rawBody, err := io.ReadAll(r.Body)
 	if err != nil {
 		helpers.DisplayAppErrorResponse(w, "There were a problem parsing request", http.StatusBadRequest)
 		return
@@ -20,24 +21,25 @@ func (p *Plugin) postMessage(w http.ResponseWriter, r *http.Request) {
 	incomingWebhook := model.IncomingWebhook{}
 	post := model.Post{}
 	postHelper := entity.PostHelper{}
+	const errMsg = "There was an error decoding json user"
 	err = json.Unmarshal(rawBody, &incomingWebhookRequest)
 	if err != nil {
-		helpers.DisplayAppErrorResponse(w, "There was an error decoding json user", http.StatusBadRequest)
+		helpers.DisplayAppErrorResponse(w, errMsg, http.StatusBadRequest)
 		return
 	}
 	err = json.Unmarshal(rawBody, &incomingWebhook)
 	if err != nil {
-		helpers.DisplayAppErrorResponse(w, "There was an error decoding json user", http.StatusBadRequest)
+		helpers.DisplayAppErrorResponse(w, errMsg, http.StatusBadRequest)
 		return
 	}
 	err = json.Unmarshal(rawBody, &post)
 	if err != nil {
-		helpers.DisplayAppErrorResponse(w, "There was an error decoding json user", http.StatusBadRequest)
+		helpers.DisplayAppErrorResponse(w, errMsg, http.StatusBadRequest)
 		return
 	}
 	err = json.Unmarshal(rawBody, &postHelper)
 	if err != nil {
-		helpers.DisplayAppErrorResponse(w, "There was an error decoding json user", http.StatusBadRequest)
+		helpers.DisplayAppErrorResponse(w, errMsg, http.StatusBadRequest)
 		return
 	}
 	post.Message = incomingWebhookRequest.Text

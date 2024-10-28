@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/mattermost/mattermost-server/model"
+import "github.com/mattermost/mattermost/server/public/model"
 
 type User struct {
 	Id        string `json:"id"`

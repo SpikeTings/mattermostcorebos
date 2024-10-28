@@ -3,7 +3,7 @@ package helpers
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 )
@@ -42,7 +42,7 @@ func RemoveIfISLast(s string, substring string) string {
 }
 
 func ReadRequestBody(r *http.Request) (map[string]interface{}, error) {
-	inputBytes, err := ioutil.ReadAll(r.Body)
+	inputBytes, err := io.ReadAll(r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -52,6 +52,6 @@ func ReadRequestBody(r *http.Request) (map[string]interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	r.Body = ioutil.NopCloser(bytes.NewBuffer(inputBytes))
+	r.Body = io.NopCloser(bytes.NewBuffer(inputBytes))
 	return input, nil
 }

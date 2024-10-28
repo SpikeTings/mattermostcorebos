@@ -1,16 +1,16 @@
-package server_plugin
+package server
 
 import (
 	"encoding/json"
-	"io/ioutil"
-	"mattermost-server-plugin/entity"
-	"mattermost-server-plugin/helpers"
+	"io"
+	"mattermostcorebos/entity"
+	"mattermostcorebos/helpers"
 	"net/http"
 )
 
 func (p *Plugin) syncUserWithCoreBOS(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
-	rawBody, err := ioutil.ReadAll(r.Body)
+	rawBody, err := io.ReadAll(r.Body)
 	if err != nil {
 		helpers.DisplayAppErrorResponse(w, "There were a problem parsing request", http.StatusBadRequest)
 		return
@@ -23,10 +23,11 @@ func (p *Plugin) syncUserWithCoreBOS(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	ctx := r.Context()
 	userCreate := userRequest.GetMMUser()
 	userExist, appError := p.API.GetUserByUsername(userCreate.Username)
 	if appError == nil {
-		p.addTeam(*userExist, userRequest)
+		p.addTeam(ctx, *userExist, userRequest)
 		userReturn := entity.User{}.GetUser(userExist)
 		jsonValue, _ := json.Marshal(userReturn)
 		w.Write(jsonValue)
@@ -34,7 +35,7 @@ func (p *Plugin) syncUserWithCoreBOS(w http.ResponseWriter, r *http.Request) {
 	}
 	userExist, appError = p.API.GetUserByEmail(userCreate.Email)
 	if appError == nil {
-		p.addTeam(*userExist, userRequest)
+		p.addTeam(ctx, *userExist, userRequest)
 		userReturn := entity.User{}.GetUser(userExist)
 		jsonValue, _ := json.Marshal(userReturn)
 		w.Write(jsonValue)
@@ -47,7 +48,7 @@ func (p *Plugin) syncUserWithCoreBOS(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p.addTeam(*userCreated, userRequest)
+	p.addTeam(ctx, *userCreated, userRequest)
 	userReturn := entity.User{}.GetUser(userCreated)
 	jsonValue, _ := json.Marshal(userReturn)
 	w.Write(jsonValue)

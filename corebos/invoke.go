@@ -2,8 +2,9 @@ package corebos
 
 import (
 	"encoding/json"
+	"mattermostcorebos/configuration"
+
 	"github.com/tsolucio/corebosgowslib"
-	"mattermost-server-plugin/configuration"
 )
 
 func DoInvoke(method, module, typeofCall string, element map[string]interface{}) (map[string]interface{}, error) {
